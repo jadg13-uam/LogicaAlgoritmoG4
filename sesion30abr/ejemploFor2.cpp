@@ -1,4 +1,5 @@
 /*Leer 5 numeros y mostrarlos */
+
 #include<iostream>
 
 using namespace std;
@@ -30,8 +31,10 @@ main(){
 void agregar(int num){
     if(fila >= MAX){
         cout << "NO SE PUEDE AGREGAR MAS NUMEROS" << endl;
+        
     }else{
         numeros[fila] =num;
+        fila++;
     }
 }
 
