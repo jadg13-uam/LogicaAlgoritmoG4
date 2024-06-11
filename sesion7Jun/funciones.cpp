@@ -16,6 +16,9 @@ void destroyCity(int id);
 
 void pedirDato();
 void mostrarTodo();
+void editar();
+void eliminar();
+void buscarCiudad();
 int menu();
 void principal();
 
@@ -79,8 +82,17 @@ void principal(){
             case 1:
                 pedirDato();
                 break;
+            case 2:
+                editar();
+                break;
+            case 3:
+                eliminar();
+                break;
             case 4:
                 mostrarTodo();
+                break;
+            case 5:
+                buscarCiudad();
                 break;
             case 6:
                 cout << "Adios tierno...\n";
@@ -111,4 +123,42 @@ void mostrarTodo(){
         cout << cities[i].name << endl;
         cout << cities[i].description << endl;
     }
+}
+
+void editar(){
+    CITY city;
+    int id;
+    cout << "ID: ";
+    cin >>id;
+    city = findCity(id);
+    cout << "Nombre: " ;
+    scanf(" %[^\n]", city.name);
+    cout << "Descripcion: ";
+    scanf(" %[^\n]", city.description);
+    updateCity(&city, id);
+    cout << "Registro actualizado...\n";
+}
+
+void eliminar() {
+    int id = 0;
+    cout << "ID de ciudad a eliminar: ";
+    cin >> id;
+
+    destroyCity(id);
+
+    cout << "Ciudad eliminada\n";
+}
+
+void buscarCiudad() {
+    int id = 0;
+    cout << "ID de ciudad a buscar: ";
+    cin >> id;
+
+    CITY city = findCity(id);
+    int x = findPos(id);
+
+    cout << "\nCiudad #" << x+1 << ":\n";
+    cout << "ID: " << city.id << endl;
+    cout << "Nombre: " << city.name << endl;
+    cout << "Descripcion: " << city.description << endl;
 }
