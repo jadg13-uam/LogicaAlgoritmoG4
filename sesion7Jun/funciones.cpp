@@ -19,6 +19,7 @@ void mostrarTodo();
 void editar();
 void eliminar();
 void buscarCiudad();
+void showData(CITY &city);
 int menu();
 void principal();
 
@@ -109,6 +110,10 @@ void pedirDato(){
     cout << "Datos de la Ciudad" << endl;
     cout << "ID: ";
     cin >> city.id;
+    if(findPos(city.id)!=-1){
+        cout << "Registro ya existe..." << endl;
+        return;
+    }
     cout << "NOMBRE: ";
     scanf(" %[^\n]", city.name);
     cout << "DESCRIPCION: ";
@@ -119,9 +124,7 @@ void pedirDato(){
 void mostrarTodo(){
     cout << "Mostrar Registros\n";
     for(int i =0; i < pos; i++){
-        cout << cities[i].id << endl;
-        cout << cities[i].name << endl;
-        cout << cities[i].description << endl;
+        showData(cities[i]);
     }
 }
 
@@ -130,6 +133,10 @@ void editar(){
     int id;
     cout << "ID: ";
     cin >>id;
+    if(findPos(id)==-1){
+        cout << "Registro no existe..." << endl;
+        return;
+    }
     city = findCity(id);
     cout << "Nombre: " ;
     scanf(" %[^\n]", city.name);
@@ -141,9 +148,16 @@ void editar(){
 
 void eliminar() {
     int id = 0;
+    if(pos == 0){
+        cout << "No hay nada que eliminar\n";
+        return;
+    }
     cout << "ID de ciudad a eliminar: ";
     cin >> id;
-
+    if(findPos(id)==-1){
+        cout << "Registro no existe..." << endl;
+        return;
+    }
     destroyCity(id);
 
     cout << "Ciudad eliminada\n";
@@ -153,11 +167,20 @@ void buscarCiudad() {
     int id = 0;
     cout << "ID de ciudad a buscar: ";
     cin >> id;
+    if(findPos(id)==-1){
+        cout << "Registro no existe..." << endl;
+        return;
+    }
 
     CITY city = findCity(id);
     int x = findPos(id);
 
     cout << "\nCiudad #" << x+1 << ":\n";
+    showData(city);
+    
+}
+
+void showData(CITY &city){
     cout << "ID: " << city.id << endl;
     cout << "Nombre: " << city.name << endl;
     cout << "Descripcion: " << city.description << endl;
