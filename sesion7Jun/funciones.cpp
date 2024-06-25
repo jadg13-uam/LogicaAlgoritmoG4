@@ -24,6 +24,7 @@ void buscarCiudad();
 void showData(CITY &city);
 int menu();
 void principal();
+void saveAll();
 
 
 //manejo de archivos
@@ -153,6 +154,7 @@ void editar(){
     scanf(" %[^\n]", city.description);
     updateCity(&city, id);
     cout << "Registro actualizado...\n";
+    saveAll();
 }
 
 void eliminar() {
@@ -168,7 +170,7 @@ void eliminar() {
         return;
     }
     destroyCity(id);
-
+    saveAll();
     cout << "Ciudad eliminada\n";
 }
 
@@ -225,4 +227,15 @@ void writeFile(const CITY &city){
     archivo << city.description << endl;
     archivo.close();
 
+}
+
+void saveAll(){
+    ofstream archivo;
+    archivo.open("cities.txt", ios::trunc | ios::out );
+    for(int i = 0; i<pos; i++){
+        archivo << cities[i].id << endl;
+        archivo << cities[i].name << endl;
+        archivo << cities[i].description << endl;
+    }
+    archivo.close();
 }
